@@ -4,14 +4,14 @@
 
 - google 開発
 - クロスプラットフォーム開発ツール
-- AS, VS で開発可能
+- AS, VSCode で開発可能
 - ホットリロードが便利
 - Android, iOS, Web 向け
 - ネイティブ言語でコンパイル
 
 ## これまでのクロスプラットフォーム
 
-- Html, JSCode
+- Html, JS
 - C# (Xamarin)
 - ゲーム向け
 
