@@ -256,6 +256,7 @@ np.nan: float 型
 - ndarray[np.newaxis, :] # 行として次元を増やす
 - ndarray[:, np.newaxis] # 列として次元を増やす
 - xx, yy = np.meshgrid(x, y)
+    - 各軸の値の配列から格子点を作り、座標を軸ごとに返す
 
 ### ユニバーサルファンクション
 
@@ -457,6 +458,9 @@ plt.show()
 
 - ヒストグラム
     - n, bins, patches = ax.hist(x)
+        - n: 度数の array
+        - bins: 境界値の array
+        - patches: 描画情報？の array
     - ax.hist(x, bins=20)
         - デフォルトは bins=10
     - ax.hist(x, orientation='horizontal') # 横向き
@@ -478,3 +482,127 @@ plt.show()
         - shadow=True # 影をつける
         - autopct='%1.2f%%' # %表記
         - explode=[0, 0.2, 0] # 2個目を飛び出し
+
+### スタイル
+
+- ax.plot(x, y, color=color)
+    - color: 線の色 (名前, 16進数, RGBA値)
+- ax.bar(x, y, color=color, edgecolor=ecolor)
+    - edgecolor: 枠線の色
+- ax.plot(x, y, linewidth=10)
+    - linewidth: 線の太さ (pt)
+- ax.plot(x, y, linestyle='--')
+    - linestyle: 線の種類
+
+ラベルのフォントの指定
+- ax.set_xlabel('x', family='fantasy', size=20, weight='bold')
+- ax.set_xlabel('x', fontdic={...})
+    - まとめて指定して使い回せる
+- ax.set_xlabel('x', fontdic={...}, size=40)
+    - 直接指定した size が優先される
+
+テキストの描画
+- ax.text(0.2, 0.4, 'Text', size=20)
+
+### pandas でグラフ描画
+
+```python
+import ...
+
+matplotlib.style.use('ggplot')
+df = pd.DataFrame({'A':[1, 2, 3], 'B':[2, 4, 6]})
+df.plot() # 折れ線グラフ
+plt.show()
+```
+
+- 1個のグラフに複数のデータを自動的に書き込む
+- df.plot.bar() # 棒グラフ
+- df.plot.bar(stacked=True) # 積み上げ棒グラフ
+- df.plot.xx() で大体のグラフが描ける
+
+## scikit-learn
+
+### 前処理
+
+- fit メソッドと transform メソッド
+- または fit_transform メソッド
+
+#### 欠損値
+
+- pandas では
+    - isnull メソッド
+    - dropna メソッド
+    - fillna メソッド
+- scikit-learn
+    - preprocessing モジュール
+    - Imputer クラス
+    - imp = Imputer(strategy='mean', axis=0)
+    - imp.fit(df)
+    - imp.transform(df) # (注意) 返り値は ndarray
+
+#### エンコーディング
+
+LabelEncoder クラス
+
+- le = LabelEncoder()
+- le.fit(db['列名'])
+- le.transform(df['列名'])
+    - 列の値を整数値に変換
+- le.classes_
+    - 0, 1, 2, ... に対応する元の値の配列
+
+OneHotEncoder クラス
+
+- pandas の get_dummies の方が使いやすい
+- ohe = OneHotEncoder(categorical_features=[1])
+    - 引数は、変換する列の位置のリスト
+- ohe.fit_transform(df).toarray()
+    - toarray() で scipy.sparse から ndarray に変換
+
+#### 特徴量の正規化
+
+分散正規化
+
+- 平均が0、標準偏差が1となるよう正規化
+
+$$x' = \frac{x - \mu}{\sigma}$$
+
+StandardScaler クラス
+
+- stdsc = StandardScaler()
+- stdsc.fit(df)
+- stdsc.transform(df)
+
+最小最大正規化
+
+- 最小値が0、最大値が1となるよう正規化
+
+$$x' = \frac{x - x_{min}}{x_{max} - x_{min}}$$
+
+MinMaxScaler クラス
+
+- mmsc = MinMaxScaler()
+- mmsc.fit(df)
+- mmsc.transform(df)
+
+#### 分類
+
+- 学習は fit メソッド
+- 予測は predict メソッド
+
+学習データとテストデータに分ける
+
+- model_selection モジュール
+    - train_test_split 関数
+    - 説明変数: ndarray や DataFrame
+    - 目的変数: ndarray
+    - test_size: テストデータの割合
+    - random_state: 乱数シード
+
+サポートベクタマシン
+
+- 分類、回帰、外れ値検出
+- カーネル (高次元空間での内積)
+- 決定境界 (分類のための直線)
+- サポートベクタ (各クラスのデータ)
+- マージン (クラス間の距離)
