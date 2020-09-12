@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0539f565fc2183dbd3979d13f4647b26d5f312df7cbd603e26ca7ac706ef5eb5"
+            "sha256": "d01039ce41c19204646e05d4dbe77e4b6817c8205b5115ca358dacfa51660260"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,10 +16,10 @@
         ]
     },
     "default": {
-        "pyplaysc": {
+        "playscript": {
             "editable": true,
-            "git": "file:///F:/Dev/Python/my_pckg/pyplaysc",
-            "ref": "9406577f56e7c16ab03ef983736842eb14c90067\nwarning: refname 'HEAD' is ambiguous."
+            "git": "file:///F:/Dev/Python/my_pckg/playscript",
+            "ref": "142626c00f46e08ff6aa358b1c673d175cdb4859"
         }
     },
     "develop": {}

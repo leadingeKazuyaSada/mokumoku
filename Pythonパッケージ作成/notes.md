@@ -2,6 +2,7 @@
 
 参考
 - [python の pip でインストールできる自作モジュールを作ってみる / 桃缶食べたい。](https://blog.chocolapod.net/momokan/entry/117)
+- [【Techの道も一歩から】第21回「setup.pyを書いてpipでインストール可能にしよう」 - Sansan Builders Blog](https://buildersbox.corp-sansan.com/entry/2019/07/11/110000)
 
 ## 自作モジュールのパッケージ化
 
@@ -30,43 +31,90 @@ from .play_sc import PlaySc, PlayScElement
 参考
 - [バージョン管理システムについての但し書き](https://pipenv-ja.readthedocs.io/ja/translate-ja/basics.html#a-note-about-vcs-dependencies)
 
+ローカルの git リポジトリからインストール
 ```
-> pipenv install -e git+file:///Dev/Python/my_pckg/pyplaysc#egg=pyplaysc
+> pipenv install -e git+file://F:/Dev/Python/my_pckg/playscript#egg=playscript
 ```
 
--e は、editable mode (依存性解決をするモード)。
+※ #egg=xxx をつけないとエラー。
+※ -e は、editable mode (依存性解決をするモード)。
+※パスに @master をつけるとエラー (ローカルだから？)。
 
-以下のエラーでインストール失敗
+ローカルのディレクトリをインストール
 ```
-PS F:\Dev\Python\my_pckg\呼び出し側サンプル> pipenv install -e git+file:///Dev/Python/my_pckg/pyplaysc#egg=pyplaysc
-Installing -e git+file:///Dev/Python/my_pckg/pyplaysc#egg=pyplaysc…
-Adding pyplaysc to Pipfile's [packages]…
-Installation Succeeded
-Pipfile.lock (ef5eb5) out of date, updating to (db4242)…
-Locking [dev-packages] dependencies…
-Locking [packages] dependencies…
-Success!
-Updated Pipfile.lock (ef5eb5)!
-Installing dependencies from Pipfile.lock (ef5eb5)…
-An error occurred while installing -e git+file:///F:/Dev/Python/my_pckg/pyplaysc#egg=pyplaysc! Will try again.
-  ================================ 1/1 - 00:00:00
-Installing initially failed dependencies…
-[pipenv.exceptions.InstallError]:   File "c:\users\sata\appdata\local\programs\python\python38\lib\site-packages\pipenv\core.py", line 1983, in do_install
-[pipenv.exceptions.InstallError]:       do_init(
-[pipenv.exceptions.InstallError]:   File "c:\users\sata\appdata\local\programs\python\python38\lib\site-packages\pipenv\core.py", line 1246, in do_init
-[pipenv.exceptions.InstallError]:       do_install_dependencies(
-[pipenv.exceptions.InstallError]:   File "c:\users\sata\appdata\local\programs\python\python38\lib\site-packages\pipenv\core.py", line 858, in do_install_dependencies
-[pipenv.exceptions.InstallError]:       batch_install(
-[pipenv.exceptions.InstallError]:   File "c:\users\sata\appdata\local\programs\python\python38\lib\site-packages\pipenv\core.py", line 763, in batch_install
-[pipenv.exceptions.InstallError]:       _cleanup_procs(procs, not blocking, failed_deps_queue, retry=retry)
-[pipenv.exceptions.InstallError]:   File "c:\users\sata\appdata\local\programs\python\python38\lib\site-packages\pipenv\core.py", line 681, in _cleanup_procs
-[pipenv.exceptions.InstallError]:       raise exceptions.InstallError(c.dep.name, extra=err_lines)
-[pipenv.exceptions.InstallError]: ['Obtaining pyplaysc from git+file:/F:/Dev/Python/my_pckg/pyplaysc#egg=pyplaysc', '  Updating f:\\dev\\python\\my_pckg\\呼び出し側サンプル\\.venv\\src\\pyplaysc clone']
-[pipenv.exceptions.InstallError]: ['ERROR: Command errored out with exit status 1: git reset --hard -q 88a07d804957fde3248552ea785f41a5bfd04d30 Check the logs for full command output.']
-ERROR: ERROR: Package installation failed...
-     ================================ 0/1 - 00:00:00
+> pipenv install -e F:/Dev/Python/my_pckg/playscript
 ```
+
+### アンインストール
+
+普通にアンインストールするとエラーになる。
+
+```
+> pipenv uninstall playscript
+(エラーメッセージ)
+```
+
+Pipfile から playscript の行を削除してから pipenv clean するとアンインストールできる。
+```
+> pipenv clean
+```
+
+※ローカルの git リポジトリからインストールした場合、なぜかアンインストールできない (というか、アンインストールしても認識される)。
+※.venv/src フォルダから削除したら認識されなくなった。
+
+## Pipfile の書き方
+
+ローカルのディレクトリをインストールする場合は、`packages` ディレクティブに以下の行を追加して `pipenv update` する。
+
+```
+[packages]
+playscript = {editable = true,path = "F:/Dev/Python/my_pckg/playscript"}
+```
+または
+```
+[packages]
+playscript = {editable = true,git = "file:///F:/Dev/Python/my_pckg/playscript"}
+```
+
+そして
+```
+> pipenv update
+```
+
+## pip install の仕方
+
+ローカルの git リポジトリからインストール
+```
+> pip install -e git+file://F:/Dev/Python/my_pckg/playscript@master#egg=playscript
+```
+
+※ #egg=xxx をつけないとエラー。
+※ -e は、editable mode (依存性解決をするモード)。
+
+ローカルのディレクトリをインストール
+```
+> pip install -e F:/Dev/Python/my_pckg/playscript
+```
+
+### アンインストール
+
+```
+> pip uninstall playscript
+```
+
+※ローカルの git リポジトリからインストールした場合、なぜかアンインストールできない (というか、アンインストールしても認識される)。
+※.venv/src フォルダから削除したら認識されなくなった。
 
 ## requirements.txt の書き方
 
-## Pipfile の書き方
+```
+# Editable Git install with no remote (pyplaysc==0.1)
+-e f:/dev/python/my_pckg/pyplaysc
+```
+
+※ pip freeze すると、パスの区切りが `\` になっていて `pip install -r` で使えないので、`\` を `/` に置換しておくこと。
+
+または
+```
+-e git+file://F:/Dev/Python/my_pckg/playscript@master#egg=playscript
+```

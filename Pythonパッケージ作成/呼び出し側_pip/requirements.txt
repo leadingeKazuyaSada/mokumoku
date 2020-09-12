@@ -1,0 +1,1 @@
+-e git+file://F:/Dev/Python/my_pckg/playscript@master#egg=playscript

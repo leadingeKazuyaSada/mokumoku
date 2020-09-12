@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-pyplaysc = {editable = true,git = "file:///F:/Dev/Python/my_pckg/pyplaysc"}
+playscript = {editable = true,git = "file:///F:/Dev/Python/my_pckg/playscript"}
 
 [requires]
 python_version = "3.8"
