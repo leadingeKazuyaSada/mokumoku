@@ -1,0 +1,76 @@
+疎結合
+	- 結合点を減らす
+	- メッセージ結合にする
+	- トリガ処理にする
+
+疎結合向けサービス
+	- ELB
+	- SQS
+	- SNS
+	- Lambda
+
+SQS (Simple Queue Service)
+	- ポーリング処理の中継地点
+	- 通信内容をキューとして保持する
+		- デフォルトで4日
+		- 60秒～14日で設定可能
+	- フルマネージド
+	- 高速で落ちない
+	- 標準キュー
+		- なるべく順番通り
+		- なるべく1回だけ送信
+	- FIFO キュー
+		- 確実に順番通り
+		- 1回しか送信しない
+	- Short Poling
+		- 空でもリターン
+	- Long Poling
+		- 空なら待つ
+	- デッドレターキュー
+		- 残り続けるメッセージを隔離
+	- Visilbility timeout
+		- 優先するインスタンス以外から見えなくする時間
+
+SNS (Simple Notification Service)
+	- プッシュ型通知サービス
+	- トピックを送信
+	- 受信側をポリシー指定する
+	- 順番は保証されない
+	- 連携
+		- CloudWatch
+			- Billing Alert の通知
+		- SES
+		- S3
+			- ファイルのアップロード時の通知
+		- Elastic Transcoder
+			- 変換処理完了時の通知
+
+SES (Simple Email Service)
+	- スケーラブル、マネージド
+	- 顧客にメール送信
+	- メール受信をトリガに処理を実行
+	- 送信方法
+		- HTTP REST API
+		- SMTP エンドポイント
+
+サーバレス
+	- サービス指向アーキテクチャ (SOA)
+	- マイクロサービス
+	- API エコノミー
+
+Lambda
+	- Execution Role
+	- Invocation Role
+	- ブループリント (サンプル集)
+	- スケジュール機能
+	- バージョニング
+	- Lambda レイヤー (共通機能)
+	- ALB のバックエンドに Lambda を使える
+	- Lambda エッジ
+	- ENI を通して VPC 内のリソースにアクセス
+	- 同時実行数: 1000
+	- 関数とレイヤ: 75GB まで
+	- デプロイと実行: 512MB まで
+
+API Gateway
+	- 最大で数十万個の API 同時呼び出し、受け付け

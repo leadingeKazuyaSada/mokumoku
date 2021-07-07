@@ -1,0 +1,59 @@
+Elastic Beanstalk
+	- 素早く簡単にアプリケーションをデプロイするサービス
+	- コードをアップロードすれば以下をしてくれる
+		- キャパシティのプロビジョニング
+		- ロードバランシング
+		- Auto Scaling
+		- ヘルスモニタリング
+		- デプロイ
+	- Web アプリのデプロイに特化している
+	- 構成要素
+		- アプリケーション
+			- バージョン
+			- 環境
+			- 環境設定
+
+OpsWorks
+	- 設定管理サービス
+	- Chef または Puppet を使用
+	- Chef または Puppet を自動で設定して構築
+	- OpsWorks for Chef Automation
+	- OpsWorks for Puppet Enterprise
+	- OpsWorks スタック
+		- Chef Client のローカルモードでレシピを実行
+		- Chef サーバは不要
+
+Chef
+	- Recipe を使って任意のインフラを展開
+
+CloudFormation
+	- AWS 内の全インフラリソースを記述してテンプレート化
+		- 毎回同じプロビジョニングにできる
+	- JSON/YAML でテンプレートを記述
+	- クロスリージョンとクロスアカウントで管理
+	- 独自ロジックを組み込むことが可能
+	- テンプレートを読み込んでスタックを作る
+	- スタックの出力を他のスタックで使える
+		- Export -> ImportValue
+		- 同じ VPC, 同じサブネットで作る等する時に使う
+
+CloudFormation デザイナー
+	- 視覚的にテンプレートを作れる
+	- 作ったテンプレートは S3 に保存される
+	- 不具合もあるので注意 (GUI の内容が反映されない等)
+
+Amazon ECR (Elastic Container Registry)
+	- コンテナイメージを保存・管理・デプロイ
+
+Amazon ECS
+	- Docker コンテナを管理するサービス
+	- コンテナが数万であっても数秒で起動
+	- ECS タスク用の IAM ロールがある
+
+Amazon EKS (Elastic Kubernetes Service)
+	- Kubernetes でコンテナを管理するサービス
+
+AWS Fargate
+	- コンテナが実行される環境
+	- ECS や EKS を作る時、EC2 起動モードか Fargate 起動モードを選ぶ。
+	

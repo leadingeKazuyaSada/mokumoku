@@ -1,0 +1,41 @@
+クロスアカウントアクセス設定
+- ロールを切り替える、というポリシーをユーザに付与する
+- そのポリシーの中で、別アカウントのロールの ARN を指定
+- 別アカウントのロールは予め移譲先のアカウントを指定して作っておく
+- そのロールの中に移譲したい権限のポリシーを含めておく
+
+IAMポリシーは JSON 形式
+- Effect
+- Action
+- Resource
+- Condition
+
+ユーザアクティビティのツール
+- IAM アクセスアナライザー
+	- 外部エンティティからのアクセスのリスクを分析
+- Access Advisor
+	- Last Accessed Data
+- Credential Report
+- AWS Config
+	- リソースの設定をモニタ・評価する
+- AWS CloudTrail
+	- 監視
+
+フェデレーションアクセス
+- Active Directory (など外部の ID 管理) と連携
+
+STS
+- Security Token Service
+  一時的な認証を付与する
+
+SCP
+- Service Control Policy
+- OU 内のメンバーに対して権限境界を設定
+
+インラインポリシー
+	- IAM アイデンティティに埋め込まれたポリシー
+カスタマー管理ポリシー
+
+ARN
+- Amazon Resource Name
+	- リソースを一意に特定するもの
