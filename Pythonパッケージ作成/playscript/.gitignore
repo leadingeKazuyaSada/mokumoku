@@ -1,0 +1,10 @@
+/build/
+/dist/
+/pip-wheel-metadata/
+__pycache__/
+*.egg-info/
+.tox/
+.venv/
+.vscode/
+*.lnk
+/docs/build/*/

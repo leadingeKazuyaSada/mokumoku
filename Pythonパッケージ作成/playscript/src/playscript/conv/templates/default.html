@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ title }}</title>
+<style>
+{{ css }}
+</style>
+</head>
+<body>
+{%- for line in lines %}
+<div class="{{ line.type|class_name }}">
+{%- if line.type.name == 'CHARACTER' %}
+  <p>{{ line.name }}</p>
+  {%- if 'text' in line.__dir__() -%}
+  <p>{{ line.text }}</p>
+  {%- endif %}
+{%- elif line.type.name == 'DIALOGUE' %}
+  <p>{{ line.name }}</p>
+  <p>{{ line.text }}</p>
+{%- else %}
+  <p>{{ line.text }}</p>
+{%- endif %}
+</div>
+{%- endfor %}
+<script>
+{{ js }}
+</script>
+</body>
+</html>

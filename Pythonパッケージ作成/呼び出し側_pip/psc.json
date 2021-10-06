@@ -1,0 +1,44 @@
+{
+    "class": "PSc",
+    "title": "",
+    "author": "",
+    "chars": [],
+    "lines": [
+        {
+            "class": "PScLine",
+            "type": "TITLE",
+            "text": "タイトル"
+        },
+        {
+            "class": "PScLine",
+            "type": "AUTHOR",
+            "text": "著者名"
+        },
+        {
+            "class": "PScLine",
+            "type": "CHARSHEADLINE",
+            "text": "登場人物"
+        },
+        {
+            "class": "PScLine",
+            "type": "CHARACTER",
+            "name": "キャラクタ"
+        },
+        {
+            "class": "PScLine",
+            "type": "H1",
+            "text": "柱"
+        },
+        {
+            "class": "PScLine",
+            "type": "DIRECTION",
+            "text": "ト書き"
+        },
+        {
+            "class": "PScLine",
+            "type": "DIALOGUE",
+            "name": "名前",
+            "text": "セリフ"
+        }
+    ]
+}

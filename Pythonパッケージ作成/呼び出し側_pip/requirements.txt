@@ -1,1 +1,3 @@
--e git+file://F:/Dev/Python/my_pckg/playscript@master#egg=playscript
+# Editable Git install with no remote (playscript==0.1)
+-e ../playscript
+-e ../psc_parse

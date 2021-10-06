@@ -1,0 +1,37 @@
+build:
+> py -m build .
+
+single test:
+(.venv) > pip install . --use-feature=in-tree-build
+(.venv) > py -m unittest -v tests.test_module_name{.class_name{.method_name}}
+
+single test w/o build:
+(.venv) > pip install -e .
+(.venv) > py -m unittest -v tests.test_module_name{.class_name{.method_name}}
+
+cross-version test:
+> del .tox
+> tox
+
+upload to TestPyPI:
+> twine upload --repository testpypi dist/*
+
+upload to PyPI:
+> twine upload --repository pypi dist/*
+
+※PyPI にアップロードする時は、setup.cfg の install_requires から、fountain を削除する。
+※GitHub に上げる時に元に戻す。
+
+docstring から rst を生成 (maxdepth=1)
+(.venv) > sphinx-apidoc -f -o docs/source src -d 1
+↓
+コミットしてタグをつけること
+
+rst から html を生成
+(.venv) > sphinx-build -b html docs/source docs/build
+マルチバージョンの場合 (タグつきのコミットから生成)
+(.venv) > sphinx-multiversion docs/source docs/build
+
+"docs/build" 以下を gh-pages ブランチのルートへ
+
+※結局、「コピー → ブランチ切り替え → コピー」が楽だった。
