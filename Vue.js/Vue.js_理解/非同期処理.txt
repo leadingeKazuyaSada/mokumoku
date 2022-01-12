@@ -1,0 +1,6 @@
+[図解「generator・native coroutine・with」 〜 関心やコードを分離する文法と、処理順序・構造]
+(https://zenn.dev/339/articles/6832decc5ef1b4a0821b)
+
+[JavaScriptの非同期処理をじっくり理解する (1) 実行モデルとタスクキュー]
+(https://zenn.dev/qnighy/articles/345aa9cae02d9d)
+
