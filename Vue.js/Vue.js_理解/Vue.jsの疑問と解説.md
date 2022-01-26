@@ -44,7 +44,7 @@
 
 <details>
 <summary>解説</summary>
-(参考)「Vue.js 入門」8.4.2 - プロジェクト構造
+(参考) 「Vue.js 入門」8.4.2 - プロジェクト構造
 
 - **App.vue** : 実行エントリポイントとなるコンポーネント
     - src フォルダ以下に置かれる。
@@ -67,6 +67,28 @@
 <details>
 <summary>解説</summary>
 
+(参考) [Vuex の状態を Vue コンポーネントに入れる](https://vuex.vuejs.org/ja/guide/state.html#vuex-%E3%81%AE%E7%8A%B6%E6%85%8B%E3%82%92-vue-%E3%82%B3%E3%83%B3%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AB%E5%85%A5%E3%82%8C%E3%82%8B)
+
+- Vuex は、ルートコンポーネントに store オプションを指定することで (これは、 Vue.use(Vuex) で有効にできます)、すべての子コンポーネントにストアを "注入" する機構を提供しています:
+    ```JavaScript
+    const app = new Vue({
+    el: '#app',
+    // "store" オプションで指定されたストアは、全ての子コンポーネントに注入されます
+    store,
+    components: { Counter },
+    template: `
+        <div class="app">
+        <counter></counter>
+        </div>
+    `
+    })
+    ```
+- ルートインスタンスに store オプションを渡すことで、渡されたストアをルートの全ての子コンポーネントに注入します。これは this.$store で各コンポーネントから参照することができます。
+
+(参考) 「Vue.js 入門」7.7.1 - コンポーネント から ストア に アクセス する
+
+- コンポーネント から ストア を 使う ため に、 ルート の Vue インスタンス 生成 時 に ストア を 渡し ます。
+- コンポーネント から ストア を 参照 する には this.$ store から ストア を 直接 使う 方法、 Vuex が 提供 し て いる ヘルパー 関数 を 使用 する 方法 の 2 つ が あり ます。
 </details>
 
 ---
@@ -74,6 +96,9 @@
 
 <details>
 <summary>解説</summary>
+
+- 不明。要調査。
+- 単にそれをしていないだけなのか、上記の store オプションをルートコンポーネントに指定していなかったのかも知れない。
 
 </details>
 
@@ -83,6 +108,9 @@
 <details>
 <summary>解説</summary>
 
+- $route で Router にアクセスしている訳ではない。
+- よって、Router にアクセスするのに $route と書ける訳ではない。
+
 </details>
 
 ---
@@ -90,7 +118,10 @@
 
 <details>
 <summary>解説</summary>
+(参考) 「Vue.js 入門」4.5.1 - Router インスタンス と Route オブジェクト
 
+- $router は Router インスタンスを表す (アプリケーション全体に対してひとつ存在)。
+- $route は Route オブジェクトを表す (ページ遷移ごとに生成される)。
 </details>
 
 ---
