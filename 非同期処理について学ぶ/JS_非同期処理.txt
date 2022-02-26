@@ -1,0 +1,27 @@
+[【図解】1から学ぶ JavaScript の 非同期処理 - Qiita](https://qiita.com/ryosuketter/items/dd467f827c1b93a74d76)
+
+[What the heck is the event loop anyway? | Philip Roberts | JSConf EU - YouTube](https://www.youtube.com/watch?v=8aGhZQkoFbQ)
+
+覚書
+
+- JavaScript はシングルスレッドの実装しかできない。
+- メインスレッドのみで非同期処理を実現している。
+
+- 代表的な非同期処理 (Web API)
+	- Promise
+	- setTimeout
+	- DOM Event
+
+- 非同期でない (ループなどの) 処理はメインスレッドを専有する。
+	- つまり、コールスタックに積まれている。
+	- 1スレッド、1スタック
+
+- タスクキュー (Callback Queue)
+	- 実行待ちの非同期処理の列
+	- FIFO
+
+- setTimeout の場合
+	- コールバックを API に渡してメインスレッドは続行。
+	- Web API が指定時間だけ待ってからコールバックをタスクキューにプッシュ。
+	- イベントループはスタックが空ならタスクキューの1個目をスタックへ移動。
+	
