@@ -1,0 +1,46 @@
+[【図解】1から学ぶ JavaScript の 非同期処理 - Qiita](https://qiita.com/ryosuketter/items/dd467f827c1b93a74d76)
+
+[What the heck is the event loop anyway? | Philip Roberts | JSConf EU - YouTube](https://www.youtube.com/watch?v=8aGhZQkoFbQ)
+
+覚書
+
+- JavaScript はシングルスレッドの実装しかできない。
+- メインスレッドのみで非同期処理を実現している。
+
+- 代表的な非同期処理 (Web API)
+	- Promise
+	- setTimeout
+	- DOM Event
+
+- 非同期でない (ループなどの) 処理はメインスレッドを専有する。
+	- つまり、コールスタックに積まれている。
+	- 1スレッド、1スタック
+
+- タスクキュー (Callback Queue)
+	- 実行待ちの非同期処理の列
+	- FIFO
+
+- setTimeout の場合
+	- コールバックを API に渡してメインスレッドは続行。
+	- Web API が指定時間だけ待ってからコールバックをタスクキューにプッシュ。
+	- イベントループはスタックが空ならタスクキューの1個目をスタックへ移動。
+
+- 非同期処理が終わってから他の非同期処理をする、という事を続けるには？
+	- コールバックをネストさせることになる。
+	- 可読性が悪い。
+
+- Promise
+	- 非同期処理を実行するためのオブジェクト。
+	- コールバック関数2個 (resolve, reject) を引数に取る。
+	- new Promise() でオブジェクトを作って、.then()... すると実行されるっぽい。
+	- Promise の処理内で、正常終了したら resolve() する。
+		- resolve() した場合は後続の then が実行される。
+		- reject() しても then は実行されるが、2個目の引数がなければ何もしない。
+	- Promise の処理内で、異常終了したら reject() する。
+		- reject() した場合は後続の (少なくとも) catch が実行される。
+	- catch を実行 (または素通り) した後に、finally が実行される。
+
+- Promise オブジェクトを返す関数を呼んだら、続けて .then()～ 等とできる。
+- Promise は「マイクロタスク (=ジョブキュー)」
+	- タスクキュー (マクロタスク) とは別に存在する非同期処理の列
+	- マイクロタスクの方がマクロタスクより優先される。
