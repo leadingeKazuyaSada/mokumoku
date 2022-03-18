@@ -1,0 +1,2 @@
+[お気楽 Lua プログラミング超入門](http://www.nct9.ne.jp/m_hiroi/light/lua.html)
+[Lua入門 (全17回)](https://dotinstall.com/lessons/basic_lua)
