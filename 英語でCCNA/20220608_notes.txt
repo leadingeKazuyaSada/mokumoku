@@ -1,0 +1,46 @@
+英語でネットワークの勉強
+
+Blueprint (シラバス？)
+
+Describe ... 表面的なこと
+Explain ... もう少し深く
+
+Udemy Cisco CCNA 200-301 Exam: Complete Course with practical labs
+1720 円
+79時間
+これだけで CCNA 合格できる (らしい)
+David Bombal
+
+Packet tracer - Network simulator (free!)
+
+hub, switch, router
+
+hub は受け取ったものを全ての PC に送信する
+
+switch は 適切なポート (MAC アドレス) に送信する (デバイス間)
+MAC アドレスで制限かけるセキュリティ
+Data link layer
+
+router はどの IP アドレスに送るか決める (ネットワーク間)
+IP アドレスで制限をかけるセキュリティ
+Network layer
+
+Bus 型: 途中が切断されるとその両側で通信できなくなる
+Star 型: 真ん中の hub が壊れると全部通信できなくなる
+Extended star 型: 途中に switch がある (複数)
+
+OSI model
+Please Do Not Throw Sausage Pizza Away.
+Don't Some People Fear Birthday?
+
+Firewall
+IPS: Intrusion Prevention System
+IDS: Intrusion Detection System
+DPI: Deep Packet Inspection
+	データが暗号化されていても怪しいかどうか分かる (99%)
+
+Wireless Access Point
+hub と同じ
+
+Cisco DNA Center (高価)
+Intent-base (何がしたいかを決めるだけ)
