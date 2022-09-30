@@ -16,7 +16,7 @@ xlrd = "*"
 openpyxl = "*"
 lxml = "*"
 pydotplus = "*"
-pillow = "~=8.3.2"
+pillow = ">=9.0.1"
 
 [requires]
 python_version = "3.8"
